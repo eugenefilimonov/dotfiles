@@ -103,7 +103,6 @@ EOF
 
 # ASDF Version Manager Setup
 fancy_echo "Configuring asdf version manager ..."
-alias install_asdf_plugin=add_or_update_asdf_plugin
 
 # shellcheck disable=SC1090
 source "$HOME/.asdf/asdf.sh"
