@@ -70,7 +70,7 @@ if [ ! -f "$HOME/.zshrc" ]; then
   touch "$HOME/.zshrc"
 fi
 
-# Brew setup 
+# Brew setup
 fancy_echo "Homebrew Setup"
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
@@ -120,3 +120,5 @@ bundle config --global jobs $((number_of_cores - 1))
 install_asdf_language "nodejs"
 install_asdf_language "python"
 
+
+# TODO: Need to install VIM PLUG, tmux tpm, powerline, patched fonts, zsh plugins
