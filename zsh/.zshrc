@@ -1,133 +1,129 @@
-call plug#begin('~/.vim/plugged')
-" Make sure you use single quotes
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-dispatch'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'kien/ctrlp.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'vim-syntastic/syntastic'
-Plug 'sheerun/vim-polyglot'
-Plug 'gabesoft/vim-ags'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'hzchirs/vim-material'
-Plug 'gilgigilgil/anderson.vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'dense-analysis/ale'
-" Initialize plug
-call plug#end()
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-map <C-\> :NERDTreeToggle<CR>
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/eugene/.oh-my-zsh"
 
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-map <leader>a  <Plug>(coc-codeaction-selected)
-map <leader>a  <Plug>(coc-codeaction-selected)
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-set number
-set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
-set noswapfile
-set history=50
-set ruler         " show the cursor position all the time
-set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
-set clipboard=unnamed  " yank to clipboard
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
 
-" Use one space, not two, after punctuation.
-set nojoinspaces
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-" Set ale signal errors and warnings
-let g:ale_sign_error = '●'
-let g:ale_sign_warning = '.'
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
-" Set specific ale linters
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'ruby': ['rubocop'],
-\}
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-" Only run linters named in ale_linters settings.
-let g:ale_linters_explicit = 1
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-" Ale Airline integration
-let g:airline#extensions#ale#enabled = 1
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-" Disable ALE auto highlights
-let g:ale_set_highlights = 0
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
-" Defined ale filters for auto save feature
-let b:ale_fixers = ['rubocop', 'eslint']
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-" Disable linter on enter
-let g:ale_lint_on_enter = 0
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
 
-" Show lint error in status line
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))    let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors    return l:counts.total == 0 ? 'OK' : printf(
-        \   '%d⨉ %d⚠ ',
-        \   all_non_errors,
-        \   all_errors
-        \)
-endfunction
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
-set statusline+=%=
-set statusline+=\ %{LinterStatus()}
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git asdf zsh-autosuggestions fast-syntax-highlighting)
 
-" map e to next lint error
-nmap <silent> <C-e> <Plug>(ale_next_wrap)
+source $ZSH/oh-my-zsh.sh
 
-" auto fix linters issues on save
-let g:ale_fix_on_save = 1
+# User configuration
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+# export MANPATH="/usr/local/man:$MANPATH"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-let g:coc_global_extensions = ['coc-solargraph']
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-" spell check settings
-set spell
-hi clear SpellBad
-hi SpellBad cterm=underline,bold
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-set termguicolors
-set background=dark
-colorscheme vim-material
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim="nvim"
+alias be="bundle exec"
+alias gclean="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$PATH:/Users/eugene/.asdf/installs/python/3.6.2/bin"
+export EDITOR='nvim'
+export THOR_MERGE='nvim'
 
-let g:airline_theme = 'material'
+function switch_pg {
+  local version_to_run=$1
+  local currently_running_version=$(psql --no-psqlrc -t -c 'show server_version;' postgres | xargs)
 
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+  # check if you're erroneously switching to the same version
+  if [ "$version_to_run" = "$currently_running_version" ]; then
+    echo "Postgres $version_to_run is already running."
+    return 1
+  fi
 
-set syntax=on
+  echo Switching from $currently_running_version to $version_to_run
+  # stop the currently running postgres server
+  $HOME/.asdf/installs/postgres/$currently_running_version/bin/pg_ctl \
+    -D $HOME/.asdf/installs/postgres/$currently_running_version/data \
+    stop
+  # start the server to be started
+  $HOME/.asdf/installs/postgres/$version_to_run/bin/pg_ctl \
+    -D $HOME/.asdf/installs/postgres/$version_to_run/data \
+    start
+  # switch the global asdf version, this ensures that `psql` is shimmed to the right version-directory
+  asdf global postgres $version_to_run
+}
