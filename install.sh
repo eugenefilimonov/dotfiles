@@ -99,6 +99,10 @@ brew "tmux"
 brew "reattach-to-user-namespace"
 brew "the_silver_searcher"
 brew "imagemagick"
+brew "elasticsearch"
+brew "kibana"
+brew "redis"
+brew "memcached"
 EOF
 
 # ASDF Version Manager Setup
