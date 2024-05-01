@@ -99,8 +99,6 @@ brew "tmux"
 brew "reattach-to-user-namespace"
 brew "the_silver_searcher"
 brew "imagemagick"
-brew "elasticsearch"
-brew "kibana"
 brew "redis"
 brew "memcached"
 EOF
@@ -109,7 +107,7 @@ EOF
 fancy_echo "Configuring asdf version manager ..."
 
 # shellcheck disable=SC1090
-source "$HOME/.asdf/asdf.sh"
+source "/opt/homebrew/opt/asdf/libexec/asdf.sh"
 add_or_update_asdf_plugin "ruby"
 add_or_update_asdf_plugin "nodejs"
 add_or_update_asdf_plugin "python"
