@@ -108,12 +108,14 @@ fancy_echo "Configuring asdf version manager ..."
 
 # shellcheck disable=SC1090
 source "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+
 add_or_update_asdf_plugin "ruby"
 add_or_update_asdf_plugin "nodejs"
 add_or_update_asdf_plugin "python"
 
 
 install_asdf_language "ruby"
+
 fancy_echo "Updating Ruby Gems"
 gem update --system
 number_of_cores=$(sysctl -n hw.ncpu)
@@ -124,3 +126,16 @@ install_asdf_language "python"
 
 
 # TODO: Need to install VIM PLUG, tmux tpm, powerline, patched fonts, zsh plugins
+
+Install Oh-my-zsh
+
+# install auto suggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# install fast syntax highlighting
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
+  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+
+# install nerd font
+  # https://www.nerdfonts.com/font-downloads
