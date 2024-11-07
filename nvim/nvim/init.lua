@@ -30,8 +30,11 @@ require("_nvim_tree")
 require("_noice")
 require("_lualine")
 require("_gruvbox")
+require("_neotest")
 require("Comment").setup()
-
+require("_conform")
+require("_linter")
 -- General Vim/Nvim Configs
 require("_configs")
+require("_keybinding")
 require("_vim_diag")

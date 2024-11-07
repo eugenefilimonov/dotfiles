@@ -7,12 +7,24 @@ lsp_zero.on_attach(function(_, bufnr)
 end)
 
 require('mason').setup({})
+require ('mason-nvim-dap').setup({
+    ensure_installed = {'js'},
+    handlers = {},
+})
+
+require('mason-tool-installer').setup({
+  ensure_installed = {
+    "prettier", -- "prettier formatter
+    "eslint_d", -- "eslint linter
+  },
+})
+
 require('mason-lspconfig').setup({
   ensure_installed = {
-    "tsserver",
-    "solargraph",
+    "ts_ls",
+    -- "solargraph",
     "tailwindcss",
-    "rubocop"
+    -- "rubocop"
   },
   handlers = {
     lsp_zero.default_setup,
@@ -25,7 +37,7 @@ require('mason-lspconfig').setup({
         }
       })
     end,
-    rubocop = function()
+    --[[ rubocop = function()
       require('lspconfig').rubocop.setup({
         cmd = { "bundle", "exec", "rubocop", "--lsp" },
         root_dir = require('lspconfig').util.root_pattern("Gemfile", ".git", ".")
@@ -45,7 +57,7 @@ require('mason-lspconfig').setup({
           symbols = true,
         }
       })
-    end,
+    end, ]]
     tsserver = function()
       require('lspconfig').tsserver.setup({
         on_init = function(client)
@@ -119,6 +131,8 @@ cmp.setup({
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1)
+      elseif vim.b._copilot_suggestion ~= nil then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn['copilot#Accept'](), true, true, true), '')
       else
         fallback()
       end

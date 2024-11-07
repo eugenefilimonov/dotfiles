@@ -31,8 +31,6 @@ vim.opt.listchars = {
   trail = "·",
 }
 vim.opt.list = true
-vim.keymap.set("n", "<leader>l", ":nohlsearch<CR><C-L>")
-vim.keymap.set('n', '<leader>pp', ":GpChatToggle popup<CR>")
 
 vim.cmd("set nobackup")
 vim.cmd("set noswapfile")

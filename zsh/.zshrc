@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/eugene/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -100,30 +100,56 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias be="bundle exec"
 alias gclean="git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+alias mycaselogin="aws sso login --profile devresource"
+alias pumakill="pkill -9 -f puma-dev"
+alias pumarestart="puma-dev -stop"
+
 export PATH="/usr/local/sbin:$PATH"
-export PATH="$PATH:/Users/eugene/.asdf/installs/python/3.6.2/bin"
+export PATH="$PATH:$HOME/.asdf/installs/python/3.10.0/bin"
 export EDITOR='nvim'
 export THOR_MERGE='nvim'
 
-function switch_pg {
-  local version_to_run=$1
-  local currently_running_version=$(psql --no-psqlrc -t -c 'show server_version;' postgres | xargs)
+eval "#(/opt/homebrew/bin/brew shellenv)"
 
-  # check if you're erroneously switching to the same version
-  if [ "$version_to_run" = "$currently_running_version" ]; then
-    echo "Postgres $version_to_run is already running."
-    return 1
-  fi
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 
-  echo Switching from $currently_running_version to $version_to_run
-  # stop the currently running postgres server
-  $HOME/.asdf/installs/postgres/$currently_running_version/bin/pg_ctl \
-    -D $HOME/.asdf/installs/postgres/$currently_running_version/data \
-    stop
-  # start the server to be started
-  $HOME/.asdf/installs/postgres/$version_to_run/bin/pg_ctl \
-    -D $HOME/.asdf/installs/postgres/$version_to_run/data \
-    start
-  # switch the global asdf version, this ensures that `psql` is shimmed to the right version-directory
-  asdf global postgres $version_to_run
+export ASDF_DIR=/opt/homebrew/opt/asdf/libexec
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+function change_db_port {
+  local OLD_PORT=$1
+  local NEW_PORT=$2
+
+  echo Switching from $OLD_PORT to $NEW_PORT
+
+  find ./services -type f -name '.env.local' -exec sed -i '' "s/$OLD_PORT/$NEW_PORT/g" {} \;
 }
+
+function create_service_migration {
+  local SERVICE_NAME=$1
+  local MIGRATION_NAME=$2
+
+  if [[ "$(pwd)" == *$SERVICE_NAME* ]]; then
+    echo Creating migration for $SERVICE_NAME
+    echo Migration name: $MIGRATION_NAME
+
+    docker compose -f compose-dev.yml --env-file=./../.env run -i $SERVICE_NAME npx prisma migrate dev  --create-only --schema=services/$SERVICE_NAME/prisma/schema.prisma -n $MIGRATION_NAME
+  else
+    echo Check your current directory. You should be in the $SERVICE_NAME directory
+  fi
+}
+
+function run_service_migrations {
+  local SERVICE_NAME=$1
+
+  if [[ "$(pwd)" == *$SERVICE_NAME* ]]; then
+    echo Running migrations for $SERVICE_NAME
+
+    docker compose -f compose-dev.yml --env-file=./../.env run -i $SERVICE_NAME npx prisma migrate dev --schema=services/$SERVICE_NAME/prisma/schema.prisma
+  else
+    echo Check your current directory. You should be in the $SERVICE_NAME directory
+  fi
+}
+export BITBUCKET_HTTPS=1

@@ -12,8 +12,14 @@ return {
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
+  {'WhoIsSethDaniel/mason-tool-installer.nvim'},
+  {"mfussenegger/nvim-dap"},
+  {"jay-babu/mason-nvim-dap.nvim"},
   {'hrsh7th/nvim-cmp'},
   {'hrsh7th/cmp-nvim-lsp'},
+  {'github/copilot.vim'},
+  {"stevearc/conform.nvim"},
+  {"mfussenegger/nvim-lint"},
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
@@ -23,14 +29,9 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
-      -- add any options here
     },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
   },
@@ -48,12 +49,10 @@ return {
   },
   {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*",
     event = "VeryLazy",
     config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
+      require("nvim-surround").setup({})
     end
   },
   {
@@ -66,5 +65,42 @@ return {
       }
     end
 
-  }
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      'nvim-neotest/neotest-jest',
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter"
+    }
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+
+      -- Only one of these is needed.
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua",              -- optional
+      "echasnovski/mini.pick",         -- optional
+    },
+    config = true
+  },
 }
