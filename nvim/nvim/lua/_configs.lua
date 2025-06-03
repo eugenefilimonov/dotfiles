@@ -38,3 +38,11 @@ vim.cmd("set nojoinspaces")
 
 vim.o.background = "dark"
 vim.cmd 'colorscheme gruvbox'
+
+vim.opt.foldtext = ""
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldcolumn = "0"
+-- vim.opt.foldlevel = 99
+-- vim.opt.foldlevelstart = 1
+-- vim.opt.foldnestmax = 10

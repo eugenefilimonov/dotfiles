@@ -8,18 +8,18 @@ return {
   { "nvim-treesitter/nvim-treesitter" },
   { "tree-sitter/tree-sitter-regex" },
   { "nvim-treesitter/nvim-treesitter-context" },
-  {'neovim/nvim-lspconfig'},
-  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
-  {'WhoIsSethDaniel/mason-tool-installer.nvim'},
-  {"mfussenegger/nvim-dap"},
-  {"jay-babu/mason-nvim-dap.nvim"},
-  {'hrsh7th/nvim-cmp'},
-  {'hrsh7th/cmp-nvim-lsp'},
-  {'github/copilot.vim'},
-  {"stevearc/conform.nvim"},
-  {"mfussenegger/nvim-lint"},
+  { 'neovim/nvim-lspconfig' },
+  { 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+  { "mfussenegger/nvim-dap" },
+  { "jay-babu/mason-nvim-dap.nvim" },
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'github/copilot.vim' },
+  { "stevearc/conform.nvim" },
+  { "mfussenegger/nvim-lint" },
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
@@ -41,31 +41,6 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   { "marko-cerovac/material.nvim" },
-  {
-    "robitx/gp.nvim",
-    config = function()
-      require("gp").setup()
-    end,
-  },
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({})
-    end
-  },
-  {
-    "RRethy/nvim-treesitter-endwise",
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        endwise = {
-          enable = true,
-        },
-      }
-    end
-
-  },
   {
     "nvim-neotest/neotest",
     dependencies = {
@@ -91,16 +66,16 @@ return {
     },
   },
   {
-    "NeogitOrg/neogit",
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "sindrets/diffview.nvim",        -- optional - Diff integration
-
-      -- Only one of these is needed.
-      "nvim-telescope/telescope.nvim", -- optional
-      "ibhagwan/fzf-lua",              -- optional
-      "echasnovski/mini.pick",         -- optional
+      { "github/copilot.vim" },    -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    config = true
+    build = "make tiktoken",       -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+    },
+    -- See Commands section for default commands if you want to lazy load on them
   },
 }

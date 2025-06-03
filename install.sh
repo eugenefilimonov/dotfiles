@@ -74,8 +74,8 @@ fi
 fancy_echo "Homebrew Setup"
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
-    /bin/bash -c \
-      "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
   fancy_echo "Homebrew already installed"
 fi
@@ -84,6 +84,7 @@ if brew list | grep -Fq brew-cask; then
   fancy_echo "Uninstalling old Homebrew-Cask ..."
   brew uninstall --force brew-cask
 fi
+
 
 fancy_echo "Homebrew Bundle"
 # Install dependencies
@@ -101,6 +102,9 @@ brew "the_silver_searcher"
 brew "imagemagick"
 brew "redis"
 brew "memcached"
+brew "mysql@8.0"
+brew "ripgrep"
+brew "awscli"
 EOF
 
 # ASDF Version Manager Setup
@@ -126,8 +130,11 @@ install_asdf_language "python"
 
 
 # TODO: Need to install VIM PLUG, tmux tpm, powerline, patched fonts, zsh plugins
+# pip install powerline-status after latest python install in asdf and set to global
 
-Install Oh-my-zsh
+#Install Oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 
 # install auto suggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions \
